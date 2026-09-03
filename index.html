@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thoughts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Fonts: swap the family names here AND in the CSS variables at thef
+     top of style.css if you want to change how the site looks. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Home screen -->
+    <section id="view-home" class="view view-home">
+      <button class="home-mark" id="logo-melt" type="button" aria-label="Inji Kim">
+  <img id="logo-melt-img" src="images/inji-kim-logo.png" alt="Inji Kim">
+</button>
+      <div class="home-inner">
+        <p class="home-eyebrow"></p>
+        <button class="btn-thoughts" id="btn-open-thoughts" type="button">
+  <img src="images/thoughts-button.png" alt="Thoughts">
+</button>
+      </div>
+    </section>
+
+    <!-- List of entries -->
+    <section id="view-list" class="view view-list" hidden>
+      <header class="bar">
+        <a href="#home" class="link-home">&larr; Home</a>
+        <h1><img src="images/thoughts-button-no-frame.png" alt="Thoughts"></h1>
+        <span></span>
+      </header>
+      <div id="entries" class="entries"></div>
+    </section>
+
+    <!-- A single entry -->
+    <section id="view-post" class="view view-post" hidden>
+      <header class="bar">
+        <a href="#thoughts" class="link-back">&larr; Thoughts</a>
+        <span></span>
+      </header>
+      <article id="post-article" class="post-article"></article>
+    </section>
+
+  </div>
+
+  <!-- posts.js defines the POSTS array (your content).
+       script.js just renders whatever is in it. -->
+  <script src="posts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
