@@ -1,0 +1,62 @@
+backend:
+  name: github
+  repo: kimforefinger/inji-blog # double-check this matches your GitHub username/repo exactly
+  branch: main
+  base_url: https://injiiiii.netlify.app
+
+media_folder: "media/uploads"
+public_folder: "media/uploads"
+
+collections:
+  - name: "posts"
+    label: "Thoughts"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}{{month}}{{day}}-{{hour}}{{minute}}{{second}}"
+    format: "json"
+    summary: "{{date}}"
+    sortable_fields: ["date"]
+    fields:
+      - label: "Date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+
+      - label: "Text"
+        name: "body"
+        widget: "markdown"
+        buttons: ["bold", "italic", "strikethrough", "link"]
+        minimal: true
+
+      - label: "Photos / gifs"
+        name: "photos"
+        widget: "list"
+        required: false
+        field:
+          label: "Photo"
+          name: "image"
+          widget: "image"
+          media_library:
+            config:
+              multiple: false
+
+      - label: "YouTube links"
+        name: "youtube"
+        widget: "list"
+        required: false
+        field:
+          label: "URL"
+          name: "url"
+          widget: "string"
+
+      - label: "SoundCloud links"
+        name: "soundcloud"
+        widget: "list"
+        required: false
+        field:
+          label: "URL"
+          name: "url"
+          widget: "string"

@@ -41,3 +41,7 @@ const POSTS = [
     media: []
   }
 ];
+
+// Lets build-posts.js (the Netlify build step) read this array from Node.
+// The browser never sees this line — it only matters for the build.
+if (typeof module !== "undefined") module.exports = POSTS;

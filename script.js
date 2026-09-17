@@ -1,14 +1,14 @@
 /* ============================================================
    RENDERING LOGIC
-   You shouldn't need to edit this file to add posts or change
-   fonts/colors — those live in posts.js and style.css.
+   Loads posts.json (generated at build time from your CMS posts
+   and posts.js) and renders it. You shouldn't need to edit this
+   file for day-to-day writing — that all happens in the CMS now.
    ============================================================ */
 
 (function () {
   "use strict";
 
-  var posts = (typeof POSTS !== "undefined" ? POSTS.slice() : []);
-  posts.sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+  var posts = [];
 
   function $(id) { return document.getElementById(id); }
 
@@ -25,14 +25,24 @@
     } catch (e) { return iso || ""; }
   }
 
-  /* Posts can hold plain text (old-style "text" field) or rich
-     text (new "html" field, written by write.html). This gets a
-     plain-text version either way, for the list preview. */
+  function renderMarkdown(md) {
+    if (window.marked && typeof window.marked.parse === "function") {
+      return window.marked.parse(md);
+    }
+    return escapeHtml(md); // marked.min.js missing — fall back to plain escaped text
+  }
+
+  /* Posts can hold: plain text ("text"), raw HTML ("html", from the
+     old write.html tool), or markdown ("body", from the CMS). This
+     gets a plain-text version for the list preview, whichever it is. */
   function plainTextOf(post) {
     if (post.text) return post.text;
-    if (post.html) {
+    var html = null;
+    if (post.body) html = renderMarkdown(post.body);
+    else if (post.html) html = post.html;
+    if (html) {
       var tmp = document.createElement("div");
-      tmp.innerHTML = post.html;
+      tmp.innerHTML = html;
       return tmp.textContent || tmp.innerText || "";
     }
     return "";
@@ -50,6 +60,18 @@
 
   function mediaGlyph() {
     return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 16l-5.5-5.5L3 19"/></svg>';
+  }
+
+  /* ---------- data ---------- */
+
+  function loadPosts() {
+    return fetch("posts.json", { cache: "no-store" })
+      .then(function (res) { return res.ok ? res.json() : []; })
+      .catch(function () { return []; })
+      .then(function (data) {
+        posts = Array.isArray(data) ? data : [];
+        posts.sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
+      });
   }
 
   /* ---------- embeds (YouTube / SoundCloud) ---------- */
@@ -105,7 +127,7 @@
   function renderList() {
     var container = $("entries");
     if (posts.length === 0) {
-      container.innerHTML = '<p class="empty">Nothing here yet — add a post in posts.js.</p>';
+      container.innerHTML = '<p class="empty">Nothing here yet — write your first thought in the CMS.</p>';
       return;
     }
     var html = "";
@@ -139,9 +161,14 @@
       ? '<div class="post-embeds">' + embeds.map(embedHtml).join("") + "</div>"
       : "";
 
-    var bodyHtml = post.html
-      ? '<div class="post-rich">' + post.html + "</div>"
-      : '<div class="post-text">' + escapeHtml(post.text || "") + "</div>";
+    var bodyHtml;
+    if (post.body) {
+      bodyHtml = '<div class="post-rich">' + renderMarkdown(post.body) + "</div>";
+    } else if (post.html) {
+      bodyHtml = '<div class="post-rich">' + post.html + "</div>";
+    } else {
+      bodyHtml = '<div class="post-text">' + escapeHtml(post.text || "") + "</div>";
+    }
 
     $("post-article").innerHTML =
       '<time class="post-date" datetime="' + escapeHtml(post.date) + '">' + formatDate(post.date) + "</time>" +
@@ -179,5 +206,5 @@
   $("btn-open-thoughts").addEventListener("click", function () { location.hash = "#thoughts"; });
   window.addEventListener("hashchange", route);
 
-  route();
+  loadPosts().then(route);
 })();

@@ -1,0 +1,7 @@
+{
+  "name": "inji-blog",
+  "private": true,
+  "scripts": {
+    "build": "node build-posts.js"
+  }
+}

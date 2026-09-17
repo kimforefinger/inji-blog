@@ -5,7 +5,7 @@
 <title>Thoughts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Fonts: swap the family names here AND in the CSS variables at thef
+<!-- Fonts: swap the family names here AND in the CSS variables at the
      top of style.css if you want to change how the site looks. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,18 +14,15 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div id="app">
 
     <!-- Home screen -->
     <section id="view-home" class="view view-home">
-      <button class="home-mark" id="logo-melt" type="button" aria-label="Inji Kim">
-  <img id="logo-melt-img" src="images/inji-kim-logo.png" alt="Inji Kim">
-</button>
+      <span class="home-mark">Inji's blog</span>
       <div class="home-inner">
-        <p class="home-eyebrow"></p>
-        <button class="btn-thoughts" id="btn-open-thoughts" type="button">
-  <img src="images/thoughts-button.png" alt="Thoughts">
-</button>
+        <p class="home-eyebrow">a quiet place to keep things</p>
+        <button class="btn-thoughts" id="btn-open-thoughts" type="button">Thoughts</button>
       </div>
     </section>
 
@@ -33,7 +30,7 @@
     <section id="view-list" class="view view-list" hidden>
       <header class="bar">
         <a href="#home" class="link-home">&larr; Home</a>
-        <h1><img src="images/thoughts-button-no-frame.png" alt="Thoughts"></h1>
+        <h1>Thoughts</h1>
         <span></span>
       </header>
       <div id="entries" class="entries"></div>
@@ -50,9 +47,10 @@
 
   </div>
 
-  <!-- posts.js defines the POSTS array (your content).
-       script.js just renders whatever is in it. -->
-  <script src="posts.js"></script>
+  <!-- script.js fetches posts.json (built from your CMS posts + posts.js
+       by build-posts.js on every deploy) and renders it. marked.min.js
+       turns the CMS's markdown text into HTML. -->
+  <script src="marked.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

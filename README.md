@@ -1,97 +1,47 @@
 # Thoughts
 
-A tiny personal blog. One button on the home page ("Thoughts") opens a
-list of short entries; each entry can hold text, photos, drawings,
-gifs, or videos.
+A tiny personal blog with two ways to write:
 
-There's no build step and no server required — it's five plain files.
+- **The CMS** — go to `/admin` on the live site, log in with GitHub, and
+  write a post there. It saves straight to `content/posts/` in this repo.
+- **posts.js** — the older, hand-edit way. Still supported; anything in
+  here gets merged in alongside your CMS posts.
+
+## How it fits together
 
 ```
-index.html   the page structure
-style.css    all colors, fonts, layout — edit this to restyle
-script.js    renders posts.js onto the page (you shouldn't need to touch this)
-posts.js     your actual content — this is the file you edit day to day
-media/       your images, gifs and videos live here
+index.html      page structure
+style.css       colors, fonts, layout
+script.js       renders posts.json onto the page (don't need to edit this)
+posts.js        older hand-written posts (optional)
+build-posts.js  runs on every Netlify deploy — combines content/posts/*.json
+                and posts.js into posts.json, which the site fetches
+admin/          the /admin CMS editor (Decap CMS) and its config.yml
+content/posts/  where the CMS saves each post as JSON
+media/uploads/  where the CMS saves uploaded photos
+images/         your own hand-placed images (logo, buttons, etc.)
 ```
 
-## Preview it
+There's nothing to run locally — Netlify runs `npm run build`
+(`node build-posts.js`) automatically on every push to `main`.
 
-Just double-click `index.html` — it opens in your browser and works
-immediately, no setup needed.
+## Writing a post
 
-For a nicer workflow in VS Code (auto-refresh whenever you save), install
-the **Live Server** extension, then right-click `index.html` → "Open with
-Live Server".
+**Via the CMS (recommended):** visit `https://injiiiii.netlify.app/admin`,
+log in, click "New Thoughts", write it, add photos/YouTube/SoundCloud
+links if you want, and publish. It commits directly to this repo and
+Netlify redeploys automatically.
 
-## Write a new post
-
-Open `posts.js`. Copy the sample block and change it:
-
-```js
-{
-  id: "monday-walk",
-  date: "2026-08-24",
-  text: "Went for a walk and the light was doing that thing again.",
-  media: []
-}
-```
-
-`id` just needs to be unique — no spaces. `date` is `YYYY-MM-DD`. Line
-breaks in `text` are preserved on the page.
-
-## Add a drawing, photo, gif or video
-
-1. Drag the file into the `media` folder.
-2. Reference it in that post's `media` array:
-
-```js
-media: [
-  { path: "media/sunday-sketch.jpg", type: "image" },
-  { path: "media/clip.mp4",          type: "video" }
-]
-```
-
-Use `type: "video"` for `.mp4`/`.webm` files, `type: "image"` for
-everything else (jpg, png, gif, webp).
-
-Keep an eye on file size, especially for video — very large files make
-the page slow to load, particularly on phones. Trimming a clip or
-compressing a photo before dropping it in helps.
+**Via posts.js:** open `posts.js`, copy the sample block, and edit
+`id`, `date`, and `text`. Push to `main` and it'll appear on the next
+deploy.
 
 ## Change fonts and colors
 
-Everything lives at the top of `style.css`, under `:root`:
+Edit the CSS variables at the top of `style.css` under `:root`. There's
+a matching dark-mode block right below it.
 
-```css
---bg: #edefe7;         /* page background */
---ink: #24261e;        /* main text color */
---accent: #4b5d3f;     /* the "Thoughts" hover, links, etc. */
---font-display: "Newsreader", ...;   /* the "Thoughts" button and titles */
---font-body: "Work Sans", ...;       /* the text of each entry */
-```
+## Deploying
 
-To use a different Google Font: pick one at [fonts.google.com](https://fonts.google.com),
-copy the `<link>` tag it gives you into `index.html` (it already has one
-there to replace), then put the font's name into the matching
-`--font-...` variable above.
-
-There's also a dark-mode block right below the light colors — it kicks
-in automatically for visitors whose system is set to dark mode.
-
-## Put it online
-
-This is a static site, so any free static host works. Two easy options:
-
-**Netlify (no account needed to try it):**
-Go to [app.netlify.com/drop](https://app.netlify.com/drop) and drag this
-whole folder onto the page. It gives you a live URL immediately.
-
-**GitHub Pages (free, keeps a real history of changes):**
-1. Create a new repository on GitHub and push this folder to it.
-2. In the repo, go to Settings → Pages, set the source to the `main`
-   branch, and save.
-3. GitHub gives you a URL like `https://yourname.github.io/reponame`.
-
-Either way, whenever you want to publish a new post: save `posts.js`
-(and any new files in `media/`), then push/redeploy — there's no
-database, the files themselves are the whole site.
+Just push to `main` — Netlify is already watching this repo and
+redeploys automatically. Nothing else to configure.
