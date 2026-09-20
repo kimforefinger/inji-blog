@@ -74,15 +74,20 @@ button { font-family: inherit; cursor: pointer; }
   padding: 2rem;
 }
 
-.home-mark {
+.logo-melt {
   position: absolute;
   top: 1.6rem;
   right: 2rem;
-  font-family: var(--font-hand);
-  font-size: 1.6rem;
-  color: var(--muted);
-  transform: rotate(-2deg);
-  transform-origin: right center;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.logo-melt-img {
+  display: block;
+  height: 2.6rem;
+  width: auto;
 }
 
 .home-inner {
@@ -103,24 +108,21 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .btn-thoughts {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(2.2rem, 8vw, 3.4rem);
+  display: inline-block;
   background: none;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.6em 1.3em;
-  color: var(--ink);
-  line-height: 1;
-  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  border: none;
+  padding: 0;
+  line-height: 0;
+  transition: transform 0.15s ease;
 }
 
-.btn-thoughts:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent);
+.btn-thoughts-img {
+  display: block;
+  height: clamp(3.2rem, 14vw, 5rem);
+  width: auto;
 }
 
+.btn-thoughts:hover { transform: scale(1.03); }
 .btn-thoughts:active { transform: scale(0.98); }
 
 /* ============================================================
@@ -138,11 +140,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .bar h1 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 500;
-  font-size: 1.4rem;
   margin: 0;
+  line-height: 0;
+}
+
+.bar-title-img {
+  display: block;
+  height: 1.6rem;
+  width: auto;
 }
 
 .link-home, .link-back {
