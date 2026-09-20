@@ -1,8 +1,9 @@
 backend:
   name: github
-  repo: kimforefinger/inji-blog # double-check this matches your GitHub username/repo exactly
+  repo: kimforefinger/inji-blog
   branch: main
-  base_url: https://injiiiii.netlify.app
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 media_folder: "media/uploads"
 public_folder: "media/uploads"
