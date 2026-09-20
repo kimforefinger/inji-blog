@@ -17,10 +17,10 @@
   /* Swap these for other Google Fonts. If you change a family name here,
      also update the <link href="https://fonts.googleapis.com/..."> tag
      in index.html to load that font. */
-  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
-  --font-body: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-  --font-hand: "Caveat", cursive;
+  --font-display: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-mono: Arial, Helvetica, sans-serif;
+  --font-hand: Arial, Helvetica, sans-serif;
 }
 
 /* Automatically follows the visitor's system dark mode. */
