@@ -19,10 +19,14 @@
 
     <!-- Home screen -->
     <section id="view-home" class="view view-home">
-      <span class="home-mark">Inji's blog</span>
+      <button class="logo-melt" id="logo-melt" type="button">
+        <img id="logo-melt-img" class="logo-melt-img" src="images/inji-kim-logo.png" alt="Inji's blog">
+      </button>
       <div class="home-inner">
         <p class="home-eyebrow">a quiet place to keep things</p>
-        <button class="btn-thoughts" id="btn-open-thoughts" type="button">Thoughts</button>
+        <button class="btn-thoughts" id="btn-open-thoughts" type="button" aria-label="Thoughts">
+          <img class="btn-thoughts-img" src="images/thoughts-button.png" alt="">
+        </button>
       </div>
     </section>
 
@@ -30,7 +34,7 @@
     <section id="view-list" class="view view-list" hidden>
       <header class="bar">
         <a href="#home" class="link-home">&larr; Home</a>
-        <h1>Thoughts</h1>
+        <h1 class="bar-title"><img class="bar-title-img" src="images/thoughts-button-no-frame.png" alt="Thoughts"></h1>
         <span></span>
       </header>
       <div id="entries" class="entries"></div>
