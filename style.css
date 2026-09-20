@@ -86,7 +86,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .logo-melt-img {
   display: block;
-  height: 2.6rem;
+  height: 7.8rem;
   width: auto;
 }
 
@@ -118,7 +118,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .btn-thoughts-img {
   display: block;
-  height: clamp(3.2rem, 14vw, 5rem);
+  height: clamp(6.4rem, 28vw, 10rem);
   width: auto;
 }
 
